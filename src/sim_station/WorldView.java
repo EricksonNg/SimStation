@@ -6,10 +6,10 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class SimView extends View {
-    public SimView(Sim sim) {
-        super(sim);
-        setSize(Sim.WORLD_SIZE, Sim.WORLD_SIZE);
+public class WorldView extends View {
+    public WorldView(World world) {
+        super(world);
+        setSize(World.WORLD_SIZE, World.WORLD_SIZE);
         Border blackline = BorderFactory.createLineBorder(Color.BLACK);
         setBorder(blackline);
         setBackground(Color.GRAY);

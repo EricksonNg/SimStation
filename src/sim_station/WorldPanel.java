@@ -4,11 +4,10 @@ import mvc.AppFactory;
 import mvc.AppPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class SimPanel extends AppPanel {
-    public SimPanel(AppFactory factory) {
+public class WorldPanel extends AppPanel {
+    public WorldPanel(AppFactory factory) {
         super(factory);
         createButtons(this);
     }
