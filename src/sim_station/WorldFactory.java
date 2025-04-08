@@ -6,15 +6,15 @@ import mvc.View;
 import tools.Command;
 import tools.Utilities;
 
-public class SimFactory implements AppFactory {
+public class WorldFactory implements AppFactory {
     @Override
     public Model makeModel() {
-        return new Sim();
+        return new World();
     }
 
     @Override
     public View makeView(Model model) {
-        return new SimView((Sim) model);
+        return new WorldView((World) model);
     }
 
     @Override
