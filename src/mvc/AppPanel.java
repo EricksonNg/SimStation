@@ -90,7 +90,7 @@ public abstract class AppPanel extends JPanel implements Subscriber, ActionListe
         }
     }
 
-    private void setModel(Model newModel) {
+    public void setModel(Model newModel) {
         this.model.unsubscribe(this);
         this.model = newModel;
         this.model.subscribe(this);
