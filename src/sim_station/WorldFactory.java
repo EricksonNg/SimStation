@@ -9,7 +9,7 @@ import tools.Utilities;
 public class WorldFactory implements AppFactory {
     @Override
     public Model makeModel() {
-        return new World();
+        return new SimStation();
     }
 
     @Override
