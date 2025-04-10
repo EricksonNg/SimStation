@@ -1,19 +1,17 @@
 package mvc;
 
-import tools.Command;
-
 public interface AppFactory {
-    Model makeModel();
+    public Model makeModel();
 
-    View makeView(Model model);
+    public View makeView(Model m);
 
-    String getTitle();
+    public String[] getEditCommands();
 
-    String getAbout();
+    public Command makeEditCommand(Model m, String t) throws Exception;
 
-    String getHelp();
+    public String getTitle();
 
-    String[] getEditCommands();
+    public String[] getHelp();
 
-    Command makeEditCommand(String name, Model model) throws Exception;
+    public String about();
 }
