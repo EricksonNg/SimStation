@@ -1,11 +1,13 @@
-package mvc;
+package tools;
+
+import mvc.Model;
 
 public abstract class Command {
-    protected Model model;
+    protected final Model model;
 
     public Command(Model model) {
         this.model = model;
     }
 
-    public abstract void execute() throws Exception;
+    public abstract void execute();
 }

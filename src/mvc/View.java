@@ -1,8 +1,10 @@
 package mvc;
 
-import javax.swing.JPanel;
+import tools.Subscriber;
+import javax.swing.*;
+import java.awt.*;
 
-public class View extends JPanel implements Subscriber{
+public abstract class View extends JPanel implements Subscriber {
     protected Model model;
 
     public View(Model model) {
@@ -10,13 +12,16 @@ public class View extends JPanel implements Subscriber{
         model.subscribe(this);
     }
 
-    public void update() {
-        repaint();
+    public abstract void update();
+
+    @Override
+    public void paintComponent(Graphics gc) {
+        super.paintComponent(gc);
     }
 
-    public void setModel(Model model) {
+    public void setModel(Model newModel) {
         this.model.unsubscribe(this);
-        this.model = model;
+        this.model = newModel;
         this.model.subscribe(this);
         update();
     }

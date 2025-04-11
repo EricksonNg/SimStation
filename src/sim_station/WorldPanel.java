@@ -5,43 +5,32 @@ import mvc.AppPanel;
 import mvc.Model;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 
 public class WorldPanel extends AppPanel {
-    protected JPanel threadPanel = new JPanel();
-
     public WorldPanel(AppFactory factory) {
         super(factory);
-        frame.setSize(1000, 550);
-
-        threadPanel.setLayout(new GridLayout(1, 5));
-        
-        String[] buttonLabels = {"Start", "Pause", "Resume", "Stop", "Stats"};
-        for (String label : buttonLabels) {
-            JPanel p = new JPanel();
-            JButton button = new JButton(label);
-            button.addActionListener(this);
-            p.add(button);
-            threadPanel.add(p);
-        }
-        
-        controlPanel.setLayout(new BorderLayout());
-        
-        JPanel p = new JPanel();
-        p.add(threadPanel);
-        
-        controlPanel.add(p, BorderLayout.NORTH);
+        createButtons(this);
     }
 
-    @Override
-    public void setModel(Model newModel) {
-        super.setModel(newModel);
-
-        var world = (World) newModel;
-        for (Agent a : world.agents) {
-            a.start();
-            a.pause();
+    protected void createButtons(ActionListener listener) {
+        String[] commands = factory.getEditCommands();
+        for (String command : commands) {
+            JButton b = new JButton(command);
+            b.addActionListener(listener);
+            controlPanel.add(b);
         }
     }
+
+    public void setModel(Model model) {
+        super.setModel(model);
+        World w = (World) model;
+        Iterator<Agent> it = w.getAgents().iterator();
+        while(it.hasNext()) {
+            Thread t = new Thread(it.next());
+            t.start();
+        }
+    }
+
 }
