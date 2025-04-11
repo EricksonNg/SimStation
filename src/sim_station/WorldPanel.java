@@ -32,6 +32,7 @@ public class WorldPanel extends AppPanel {
         p.add(threadPanel);
         
         controlPanel.add(p, BorderLayout.NORTH);
+        ((World) model).populate();
     }
 
     @Override
