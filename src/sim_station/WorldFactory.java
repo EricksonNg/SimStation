@@ -3,15 +3,9 @@ package sim_station;
 import mvc.*;
 import sim_station.commands.*;
 
-public class WorldFactory implements AppFactory {
+public abstract class WorldFactory implements AppFactory {
     @Override
-    public Model makeModel() {
-        return new World() {
-            @Override
-            public void populate() {
-            }
-        };
-    }
+    public abstract Model makeModel();
 
     @Override
     public View makeView(Model model) {
