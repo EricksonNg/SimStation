@@ -17,7 +17,7 @@ public class WorldPanel extends AppPanel {
 
         threadPanel.setLayout(new GridLayout(1, 5));
         
-        String[] buttonLabels = {"Start", "Pause", "Resume", "Stop", "Stats"};
+        String[] buttonLabels = factory.getEditCommands();
         for (String label : buttonLabels) {
             JPanel p = new JPanel();
             JButton button = new JButton(label);

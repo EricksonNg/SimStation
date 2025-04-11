@@ -53,7 +53,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         JMenuBar result = new JMenuBar();
         // add file, edit, and help menus
         JMenu fileMenu =
-                Utilities.makeMenu("File", new String[] {"New",  "Save", "SaveAs", "Open", "Quit"}, this);
+                Utilities.makeMenu("File", new String[] {"New",  "Save", "Save As", "Open", "Quit"}, this);
         result.add(fileMenu);
 
         JMenu editMenu =
@@ -73,7 +73,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
             if (cmmd.equals("Save")) {
                 Utilities.save(model, false);
-            } else if (cmmd.equals("SaveAs")) {
+            } else if (cmmd.equals("Save As")) {
                 Utilities.save(model, true);
             } else if (cmmd.equals("Open")) {
                 Model newModel = Utilities.open(model);
