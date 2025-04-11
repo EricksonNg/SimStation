@@ -10,26 +10,60 @@ public abstract class Agent implements Runnable, Serializable {
     boolean stopped = false;
     String agentName;
     Thread myThread;
+    protected World world;
+
+    public void setWorld(World newWorld) {
+        world = newWorld;
+    }
+
+    public void setPosition(int x, int y) {
+        this.xc = x;
+        this.yc = y;
+    }
 
     public void start() {
-
+        if (myThread == null) {
+            myThread = new Thread(this);
+            myThread.start();
+        }
     }
 
     public void stop() {
-
+        if (myThread != null) {
+            stopped = true;
+            paused = true;
+            myThread.interrupt();
+            myThread = null;
+        }
     }
 
     public void pause() {
-
+        if (myThread != null) {
+            paused = true;
+        }
     }
 
     public void resume() {
-
+        if (paused == true) {
+            paused = false;
+            synchronized (myThread) {
+                myThread.notify();
+            }
+        }
     }
 
     public abstract void update();
 
     public void run() {
-        update();
+        while (!stopped) {
+            if (!paused) {
+                update();
+            }
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
