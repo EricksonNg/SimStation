@@ -42,15 +42,15 @@ public class WorldFactory implements AppFactory {
     public Command makeEditCommand (Model model, String cmmd) throws Exception{
         switch (cmmd) {
             case "Start":
-                return new StartCommand((World) model);
+                return new StartCommand(model);
             case "Pause":
-                return new PauseCommand((World) model);
+                return new PauseCommand(model);
             case "Resume":
-                return new ResumeCommand((World) model);
+                return new ResumeCommand(model);
             case "Stop":
-                return new StopCommand((World) model);
+                return new StopCommand(model);
             case "Stats":
-                // return new StatsCommand((World) model);
+                 return new StatsCommand(model);
             default:
                 throw new Exception("No such command yet");
         }
