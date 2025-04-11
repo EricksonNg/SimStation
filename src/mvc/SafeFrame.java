@@ -2,7 +2,6 @@ package mvc;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
-import tools.Utilities;
 
 public class SafeFrame extends JFrame {
 
@@ -19,4 +18,3 @@ public class SafeFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }
-

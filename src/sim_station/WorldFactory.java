@@ -1,20 +1,21 @@
 package sim_station;
 
-import mvc.AppFactory;
-import mvc.Model;
-import mvc.View;
-import tools.Command;
-import tools.Utilities;
+import mvc.*;
+import sim_station.commands.*;
 
 public class WorldFactory implements AppFactory {
     @Override
     public Model makeModel() {
-        return new SimStation();
+        return new World() {
+            @Override
+            public void populate() {
+            }
+        };
     }
 
     @Override
     public View makeView(Model model) {
-        return new WorldView((World) model);
+        return new WorldView(model);
     }
 
     @Override
@@ -23,19 +24,13 @@ public class WorldFactory implements AppFactory {
     }
 
     @Override
-    public String getAbout() {
+    public String about() {
         return "Team 10, 2025. All rights reserved.";
     }
 
     @Override
-    public String getHelp() {
-        return Utilities.buildMultilineString(
-                "Start: ",
-                "Pause: ",
-                "Resume: ",
-                "Stop: ",
-                "Stats: "
-        );
+    public String[] getHelp() {
+        return new String[] {"Resume", "Pause", "Stop", "Stats", "Start"};
     }
 
     @Override
@@ -44,8 +39,20 @@ public class WorldFactory implements AppFactory {
     }
 
     @Override
-    public Command makeEditCommand (String name, Model model) throws Exception{
-        // generate commands here, other return exception
-        throw new Exception("No such command yet");
+    public Command makeEditCommand (Model model, String cmmd) throws Exception{
+        switch (cmmd) {
+            case "Start":
+                return new StartCommand((World) model);
+            case "Pause":
+                return new PauseCommand((World) model);
+            case "Resume":
+                return new ResumeCommand((World) model);
+            case "Stop":
+                return new StopCommand((World) model);
+            case "Stats":
+                // return new StatsCommand((World) model);
+            default:
+                throw new Exception("No such command yet");
+        }
     }
 }
