@@ -1,7 +1,7 @@
 package sim_station;
 
 public class ObserverAgent extends Agent {
-    private World world;
+    World world;
 
     public ObserverAgent(World w) {
         world = w;

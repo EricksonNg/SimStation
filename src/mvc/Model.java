@@ -1,11 +1,16 @@
 package mvc;
 
+import tools.Publisher;
+
+import java.io.Serial;
 import java.io.Serializable;
 
-public class Model extends Publisher implements Serializable {
-    
-    Boolean unsavedChanges = false;
-    String fileName = null;
+public abstract class Model extends Publisher implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    protected boolean hasUnsavedChanges = false;
+
+    private String fileName;
 
     public String getFileName() {
         return fileName;
@@ -13,19 +18,13 @@ public class Model extends Publisher implements Serializable {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-        changed();
     }
 
-    public boolean getUnsavedChanges() {
-        return unsavedChanges;
+    public boolean hasUnsavedChanges() {
+        return hasUnsavedChanges;
     }
 
-    public void setUnsavedChanges(boolean value) {
-        this.unsavedChanges = value;
-    }
-
-    public void changed() {
-        unsavedChanges = true;
-        notifySubscribers();
+    public void setUnsavedChanges(boolean hasUnsavedChanges) {
+        this.hasUnsavedChanges = hasUnsavedChanges;
     }
 }
