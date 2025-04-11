@@ -19,11 +19,6 @@ class Drunk extends MobileAgent {
 }
 
 
-class RandomWalkFactory extends WorldFactory {
-    public Model makeModel() { return new RandomWalkSimulation(); }
-    public String getTitle() { return "Random Walks";}
-}
-
 public class RandomWalkSimulation extends World {
 
     public void populate() {
