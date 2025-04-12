@@ -1,10 +1,9 @@
-import sim_station.WorldFactory;
 import sim_station.WorldPanel;
-import sim_station.randomWalk.RandomWalkFactory;
+import plague.PlagueFactory;
 
 public class Main {
     public static void main(String[] args) {
-        WorldPanel app = new WorldPanel(new RandomWalkFactory());
+        WorldPanel app = new WorldPanel(new PlagueFactory());
         app.display();
     }
 }

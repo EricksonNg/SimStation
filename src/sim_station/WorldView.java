@@ -18,11 +18,12 @@ public class WorldView extends View {
         setBackground(Color.GRAY);
     }
 
-    public void drawAgent(Graphics g, Agent a) {
+    public void drawAgent(Agent a, Graphics g) {
         g.setColor(Color.RED);
-        g.fillOval(a.xc, a.yc, 10, 10);
+        int size = 10;
+        g.fillOval(a.xc - size/2, a.yc - size/2, size, size);
     }
-        
+
     @Override
     public void update() {
         repaint();
@@ -34,7 +35,7 @@ public class WorldView extends View {
         g.setColor(Color.BLUE);
         g.drawRect(0, 0, World.WORLD_SIZE, World.WORLD_SIZE);
         for (Agent a : world.getAgents()) {
-            drawAgent(g, a);
+            drawAgent(a, g);
         }
     }
 }
