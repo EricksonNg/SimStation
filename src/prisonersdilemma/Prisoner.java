@@ -69,8 +69,7 @@ public void update() {
             world.removeAgent(neighbor);
         }
 
-        this.setX(neighbor.getX());
-        this.setY(neighbor.getY());
+        this.setPosition(neighbor.getX(), neighbor.getY());
     } else {
         // If no neighbor is found, move randomly
         heading = Heading.random();
