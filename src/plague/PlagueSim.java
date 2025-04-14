@@ -64,10 +64,8 @@ public class PlagueSim extends World {
             }
         }
 
-        double percentInfected = agents.size() > 0 ?
-                100.0 * infectedCount / agents.size() : 0;
+        double percentInfected = agents.size() > 0 ? 100.0 * infectedCount / agents.size() : 0;
 
-        return String.format("#agents = %d\nclock = %d\n%% infected = %.1f",
-                agents.size(), getClock(), percentInfected);
+        return String.format("#agents = %d\nclock = %d\n%% infected = %.1f", agents.size(), getClock(), percentInfected);
     }
 }

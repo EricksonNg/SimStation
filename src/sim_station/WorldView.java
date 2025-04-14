@@ -20,15 +20,8 @@ public class WorldView extends View {
     }
 
     public void drawAgent(Agent a, Graphics g) {
-        if (a instanceof plague.Infected) {
-            plague.Infected host = (plague.Infected) a;
-            if (host.isInfected()) {
-                g.setColor(Color.RED);
-            } else if (host.isResistant()) {
-                g.setColor(Color.BLUE);
-            } else {
-                g.setColor(Color.GREEN);
-            }
+        if (a instanceof Infected host) {
+            g.setColor(host.getColor());
         } else {
             g.setColor(Color.RED);
         }
