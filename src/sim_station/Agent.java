@@ -1,5 +1,6 @@
 package sim_station;
 
+import java.awt.*;
 import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
@@ -19,6 +20,14 @@ public abstract class Agent implements Runnable, Serializable {
     public void setPosition(int x, int y) {
         this.xc = x;
         this.yc = y;
+    }
+
+    public int getX() {
+        return xc;
+    }
+
+    public int getY() {
+        return yc;
     }
 
     public void start() {
