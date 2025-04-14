@@ -4,6 +4,8 @@ import mvc.*;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 public abstract class World extends Model {
     private static final long serialVersionUID = 1L;
     public static int WORLD_SIZE = 500;
@@ -62,13 +64,22 @@ public abstract class World extends Model {
 
     public void updateStatistics() {
         clock++;
+        alive = 0;
         for (Agent a : agents) {
             if (!a.stopped) alive++;
         }
     }
 
     public Agent getNeighbor(Agent caller, int radius) {
-        return new ObserverAgent(this);
+        for (Agent a : agents) {
+            if (a == caller) {
+                continue;
+            }
+            if (abs(a.getX() - caller.getX()) < radius && abs(a.getY() - caller.getY()) < radius) {
+                return a;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Agent> getAgents() {
