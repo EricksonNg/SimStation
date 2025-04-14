@@ -1,5 +1,6 @@
 package prisonersdilemma;
-
+import mvc.Utilities;
+import sim_station.Heading;
 import sim_station.MobileAgent;
 
 public class Prisoner extends MobileAgent {
@@ -23,28 +24,57 @@ public class Prisoner extends MobileAgent {
         return fitness;
     }
 
-    @Override
-    public void update() {
-        Prisoner neighbor = (Prisoner) world.getNeighbor(this, 10);
-        if (neighbor != null) {
-            boolean myChoice = cooperate();
-            boolean theirChoice = neighbor.cooperate();
-
-            if (myChoice && theirChoice) {
-                updateFitness(3);
-                neighbor.updateFitness(3);
-            } else if (!myChoice && theirChoice) {
-                updateFitness(5);
-                neighbor.updateFitness(0);
-            } else if (myChoice && !theirChoice) {
-                updateFitness(0);
-                neighbor.updateFitness(5);
-            } else {
-                updateFitness(1);
-                neighbor.updateFitness(1);
-            }
-
-            partnerCheated = !theirChoice;
-        }
+    public void setFitness(int fitness) {
+        this.fitness = fitness;
     }
+
+    public Strategy getStrategy() {
+        return strategy;
+    }
+
+@Override
+public void update() {
+
+    Prisoner neighbor = (Prisoner) world.getNeighbor(this, 10);
+
+    if (neighbor != null) {
+
+
+        boolean myChoice = cooperate();
+        boolean theirChoice = neighbor.cooperate();
+
+        int myFitnessChange = 0;
+        int theirFitnessChange = 0;
+
+        if (myChoice && theirChoice) {
+            myFitnessChange = 3;
+            theirFitnessChange = 3;
+        } else if (!myChoice && theirChoice) {
+            myFitnessChange = 5;
+            theirFitnessChange = 0;
+        } else if (myChoice && !theirChoice) {
+            myFitnessChange = 0;
+            theirFitnessChange = 5;
+        } else {
+            myFitnessChange = 1;
+            theirFitnessChange = 1;
+        }
+
+        updateFitness(myFitnessChange);
+        neighbor.updateFitness(theirFitnessChange);
+
+        if (this.getFitness() <= 0) {
+            world.removeAgent(this); // Remove this prisoner if it loses
+        } else if (neighbor.getFitness() <= 0) {
+            world.removeAgent(neighbor);
+        }
+
+        this.setX(neighbor.getX());
+        this.setY(neighbor.getY());
+    } else {
+        // If no neighbor is found, move randomly
+        heading = Heading.random();
+        move(Utilities.rng.nextInt(10) + 1);
+    }
+}
 }

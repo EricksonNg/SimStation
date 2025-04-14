@@ -20,7 +20,8 @@ public class WorldView extends View {
     }
 
     public void drawAgent(Agent a, Graphics g) {
-        if (a instanceof Infected host) {
+        if (a instanceof Infected) {
+            Infected host = (Infected) a;
             g.setColor(host.getColor());
         } else {
             g.setColor(Color.RED);

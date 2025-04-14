@@ -25,6 +25,11 @@ public abstract class World extends Model {
         changed();
     }
 
+    public void removeAgent(Agent a) {
+        agents.remove(a);
+        changed();
+    }
+
     public void startAgents() {
         for (Agent a : agents) {
             a.start();
