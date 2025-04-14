@@ -1,6 +1,7 @@
 package sim_station;
 
 import mvc.*;
+import plague.Infected;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,7 +20,19 @@ public class WorldView extends View {
     }
 
     public void drawAgent(Agent a, Graphics g) {
-        g.setColor(Color.RED);
+        if (a instanceof plague.Infected) {
+            plague.Infected host = (plague.Infected) a;
+            if (host.isInfected()) {
+                g.setColor(Color.RED);
+            } else if (host.isResistant()) {
+                g.setColor(Color.BLUE);
+            } else {
+                g.setColor(Color.GREEN);
+            }
+        } else {
+            g.setColor(Color.RED);
+        }
+
         int size = 10;
         g.fillOval(a.xc - size/2, a.yc - size/2, size, size);
     }

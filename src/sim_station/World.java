@@ -5,12 +5,16 @@ import mvc.*;
 import java.util.ArrayList;
 
 public abstract class World extends Model {
-    private static final long serialVersionUID = 1L; // Ensures compatibility across versions
+    private static final long serialVersionUID = 1L;
     public static int WORLD_SIZE = 500;
     private int clock = 0;
     private int alive = 0;
     private ObserverAgent observer = new ObserverAgent(this);
     protected ArrayList<Agent> agents = new ArrayList<Agent>(100);
+
+    public int getClock() {
+        return clock;
+    }
 
     public void addAgent(Agent a) {
         a.setWorld(this);
@@ -60,7 +64,7 @@ public abstract class World extends Model {
         clock++;
         for (Agent a : agents) {
             if (!a.stopped) alive++;
-        }   
+        }
     }
 
     public Agent getNeighbor(Agent caller, int radius) {
@@ -70,6 +74,4 @@ public abstract class World extends Model {
     public ArrayList<Agent> getAgents() {
         return agents;
     }
-
-
 }
