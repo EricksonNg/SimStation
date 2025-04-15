@@ -10,7 +10,6 @@ import java.awt.*;
 public class Infected extends MobileAgent {
     private boolean infected;
     private int recoveryTimer = 0;
-    private boolean resistant = false;
 
     public Infected() {
         this(false);
@@ -21,26 +20,17 @@ public class Infected extends MobileAgent {
         if (infected) {
             startRecoveryTimer();
         }
-
-        if (Utilities.rng.nextInt(100) < PlagueSim.RESISTANCE) {
-            resistant = true;
-        }
     }
 
     public boolean isInfected() {
         return infected;
     }
 
-    public boolean isResistant() {
-        return resistant;
-    }
-
     public Color getColor() {
         if (infected) {
             return Color.RED;
-        } else if (resistant) {
-            return Color.BLUE;
-        } else {
+        }
+        else {
             return Color.GREEN;
         }
     }
@@ -53,11 +43,11 @@ public class Infected extends MobileAgent {
         Infected neighbor = (Infected) world.getNeighbor(this, 10);
         if (neighbor != null) {
 
-            if (neighbor.isInfected() && neighbor.isResistant()) {
+            if (neighbor.isInfected()) {
                 return;
             }
 
-            if (Utilities.rng.nextInt(100) < PlagueSim.VIRULENCE) {
+            if (Utilities.rng.nextInt(100) > PlagueSim.RESISTANCE) {
                 neighbor.infected = true;
                 neighbor.startRecoveryTimer();
             }
@@ -76,7 +66,6 @@ public class Infected extends MobileAgent {
                 recoveryTimer--;
                 if (recoveryTimer <= 0) {
                     infected = false;
-                    resistant = true;
 
                     PlagueSim sim = (PlagueSim) world;
                     if (sim.isFatal() && Utilities.rng.nextInt(100) < 10) {
