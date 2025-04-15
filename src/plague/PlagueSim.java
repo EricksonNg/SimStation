@@ -4,8 +4,7 @@ import sim_station.World;
 
 public class PlagueSim extends World {
     public static int VIRULENCE = 50;
-    public static int RESISTANCE = 2;
-    public static int INITIAL_INFECTED = 10;
+    public static int RESISTANCE = 25;
     public static int POPULATION_SIZE = 50;
     public static int RECOVERY_TIME = 200;
     private boolean fatal = false;
@@ -16,10 +15,6 @@ public class PlagueSim extends World {
 
     public void setResistance(int value) {
         RESISTANCE = value;
-    }
-
-    public void setInitialInfected(int value) {
-        INITIAL_INFECTED = value;
     }
 
     public void setPopulationSize(int value) {
@@ -42,7 +37,8 @@ public class PlagueSim extends World {
     public void populate() {
         agents.clear();
 
-        int infectedCount = POPULATION_SIZE * INITIAL_INFECTED / 100;
+        double initialPercent = VIRULENCE / 100.0;
+        double infectedCount = POPULATION_SIZE * initialPercent;
 
         for (int i = 0; i < POPULATION_SIZE; i++) {
             if (i < infectedCount) {

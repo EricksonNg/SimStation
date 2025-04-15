@@ -24,7 +24,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
 
         JPanel infectedPanel = new JPanel(new BorderLayout());
         infectedPanel.add(new JLabel("Initial % Infected:"), BorderLayout.NORTH);
-        initialInfectedSlider = new JSlider(0, 100, PlagueSim.INITIAL_INFECTED);
+        initialInfectedSlider = new JSlider(0, 100, PlagueSim.VIRULENCE);
         initialInfectedSlider.setMajorTickSpacing(10);
         initialInfectedSlider.setPaintTicks(true);
         initialInfectedSlider.setPaintLabels(true);
@@ -34,7 +34,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
 
         JPanel probabilityPanel = new JPanel(new BorderLayout());
         probabilityPanel.add(new JLabel("Infection Probability:"), BorderLayout.NORTH);
-        infectionProbabilitySlider = new JSlider(0, 100, PlagueSim.VIRULENCE);
+        infectionProbabilitySlider = new JSlider(0, 100, 100-PlagueSim.RESISTANCE);
         infectionProbabilitySlider.setMajorTickSpacing(10);
         infectionProbabilitySlider.setPaintTicks(true);
         infectionProbabilitySlider.setPaintLabels(true);
@@ -67,7 +67,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
         fatalityToggle.addActionListener(e -> {
             PlagueSim sim = (PlagueSim) model;
             sim.setFatal(!sim.isFatal());
-            fatalityToggle.setText(sim.isFatal() ? "Fatal" : "Not Fatal");
+            fatalityToggle.setText(sim.isFatal() ? "Set to Fatal" : "Set to Not Fatal");
         });
         togglePanel.add(fatalityToggle);
         sliderPanel.add(togglePanel);
@@ -80,9 +80,9 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
         PlagueSim sim = (PlagueSim) model;
 
         if (e.getSource() == initialInfectedSlider) {
-            sim.setInitialInfected(initialInfectedSlider.getValue());
+            sim.setVirulence(initialInfectedSlider.getValue());
         } else if (e.getSource() == infectionProbabilitySlider) {
-            sim.setVirulence(infectionProbabilitySlider.getValue());
+            sim.setResistance(100-infectionProbabilitySlider.getValue());
         } else if (e.getSource() == populationSizeSlider) {
             sim.setPopulationSize(populationSizeSlider.getValue());
         } else if (e.getSource() == recoveryTimeSlider) {
