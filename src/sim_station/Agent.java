@@ -31,6 +31,10 @@ public abstract class Agent implements Runnable, Serializable {
     }
 
     public void start() {
+        if (stopped) {
+            stopped = false;
+        }
+        
         if (myThread == null) {
             myThread = new Thread(this);
             myThread.start();
