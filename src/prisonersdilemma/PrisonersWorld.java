@@ -12,4 +12,27 @@ public class PrisonersWorld extends World {
             addAgent(new Prisoner(new TitForTat()));
         }
     }
+
+    @Override
+    public String getStatus() {
+        int cooperateCount = 0;
+        int cheatCount = 0;
+        int randomCount = 0;
+        int titForTatCount = 0;
+
+        for (var agent : agents) {
+            if (agent instanceof Prisoner) {
+                Strategy strategy = ((Prisoner) agent).getStrategy();
+                if (strategy instanceof Cooperate) cooperateCount++;
+                else if (strategy instanceof Cheat) cheatCount++;
+                else if (strategy instanceof Random) randomCount++;
+                else if (strategy instanceof TitForTat) titForTatCount++;
+            }
+        }
+
+        return String.format(
+            "#agents = %d\nclock = %d\nCooperate = %d\nCheat = %d\nRandom = %d\nTitForTat = %d",
+            agents.size(), getClock(), cooperateCount, cheatCount, randomCount, titForTatCount
+        );
+    }
 }
