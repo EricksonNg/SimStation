@@ -3,18 +3,18 @@ package plague;
 import sim_station.World;
 
 public class PlagueSim extends World {
+    public static int INITIAL_INFECTED = 25;
     public static int VIRULENCE = 50;
-    public static int RESISTANCE = 25;
     public static int POPULATION_SIZE = 50;
-    public static int RECOVERY_TIME = 200;
+    public static int RECOVERY_TIME = 300;
     private boolean fatal = false;
 
     public void setVirulence(int value) {
         VIRULENCE = value;
     }
 
-    public void setResistance(int value) {
-        RESISTANCE = value;
+    public void setInitialInfected(int value) {
+        INITIAL_INFECTED = value;
     }
 
     public void setPopulationSize(int value) {
@@ -37,11 +37,8 @@ public class PlagueSim extends World {
     public void populate() {
         agents.clear();
 
-        double initialPercent = VIRULENCE / 100.0;
-        double infectedCount = POPULATION_SIZE * initialPercent;
-
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            if (i < infectedCount) {
+            if (i < INITIAL_INFECTED) {
                 Infected host = new Infected(true);
                 addAgent(host);
             } else {

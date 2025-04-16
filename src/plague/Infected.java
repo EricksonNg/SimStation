@@ -47,7 +47,7 @@ public class Infected extends MobileAgent {
                 return;
             }
 
-            if (Utilities.rng.nextInt(100) > PlagueSim.RESISTANCE) {
+            if (Utilities.rng.nextInt(100) < PlagueSim.VIRULENCE) {
                 neighbor.infected = true;
                 neighbor.startRecoveryTimer();
             }
