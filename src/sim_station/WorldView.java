@@ -2,10 +2,12 @@ package sim_station;
 
 import mvc.*;
 import plague.Infected;
+import prisonersdilemma.Prisoner;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class WorldView extends View {
     private World world;
@@ -23,7 +25,11 @@ public class WorldView extends View {
         if (a instanceof Infected) {
             Infected host = (Infected) a;
             g.setColor(host.getColor());
-        } else {
+        }
+        else if (a instanceof Prisoner) {
+            g.setColor(Color.ORANGE);
+        }
+        else {
             g.setColor(Color.RED);
         }
 
@@ -41,8 +47,16 @@ public class WorldView extends View {
         super.paintComponent(g);
         g.setColor(Color.BLUE);
         g.drawRect(0, 0, World.WORLD_SIZE, World.WORLD_SIZE);
-        for (Agent a : world.getAgents()) {
-            drawAgent(a, g);
+
+        ArrayList<Agent> agents;
+        synchronized (world.getAgents()) {
+            agents = new ArrayList<>(world.getAgents());
+        }
+
+        for (Agent a : agents) {
+            if (!a.getStopped()) {
+                drawAgent(a, g);
+            }
         }
     }
 }
