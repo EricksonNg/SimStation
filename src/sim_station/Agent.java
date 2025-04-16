@@ -30,6 +30,10 @@ public abstract class Agent implements Runnable, Serializable {
         return yc;
     }
 
+    public boolean getStopped() {
+        return stopped;
+    }
+
     public void start() {
         if (stopped) {
             stopped = false;
@@ -75,7 +79,7 @@ public abstract class Agent implements Runnable, Serializable {
             try {
                 Thread.sleep(25);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
     }

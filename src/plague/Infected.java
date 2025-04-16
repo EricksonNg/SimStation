@@ -65,11 +65,12 @@ public class Infected extends MobileAgent {
             if (recoveryTimer > 0) {
                 recoveryTimer--;
                 if (recoveryTimer <= 0) {
-                    infected = false;
-
                     PlagueSim sim = (PlagueSim) world;
-                    if (sim.isFatal() && Utilities.rng.nextInt(100) < 10) {
+                    if (sim.isFatal()) {
                         stop();
+                    }
+                    else {
+                        infected = false;
                     }
                 }
             }

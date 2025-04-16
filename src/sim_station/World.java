@@ -2,6 +2,7 @@ package sim_station;
 
 import mvc.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
@@ -31,10 +32,12 @@ public abstract class World extends Model {
     }
 
     public void startAgents() {
-        for (Agent a : agents) {
-            a.start();
+        synchronized (agents) {
+            for (Agent a : agents) {
+                a.start();
+            }
+            observer.start();
         }
-        observer.start();
     }
 
     public void stopAgents() {
@@ -76,7 +79,12 @@ public abstract class World extends Model {
     }
 
     public Agent getNeighbor(Agent caller, int radius) {
-        for (Agent a : agents) {
+        ArrayList<Agent> copies;
+        synchronized (agents) {
+            copies = new ArrayList<>(agents);
+        }
+
+        for (Agent a : copies) {
             if (a == caller) {
                 continue;
             }
