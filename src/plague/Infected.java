@@ -27,7 +27,10 @@ public class Infected extends MobileAgent {
     }
 
     public Color getColor() {
-        if (infected) {
+        if (stopped) {
+            return Color.BLACK;
+        }
+        else if (infected) {
             return Color.RED;
         }
         else {
@@ -56,10 +59,6 @@ public class Infected extends MobileAgent {
 
     @Override
     public void update() {
-        heading = Heading.random();
-        int steps = Utilities.rng.nextInt(10) + 1;
-        move(steps);
-
         if (infected) {
             tryToInfectNeighbor();
             if (recoveryTimer > 0) {
@@ -75,5 +74,8 @@ public class Infected extends MobileAgent {
                 }
             }
         }
+        turn(Heading.random());
+        int steps = Utilities.rng.nextInt(10) + 1;
+        move(steps);
     }
 }

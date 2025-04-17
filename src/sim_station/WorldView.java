@@ -54,9 +54,7 @@ public class WorldView extends View {
         }
 
         for (Agent a : agents) {
-            if (!a.getStopped()) {
-                drawAgent(a, g);
-            }
+            drawAgent(a, g);
         }
     }
 }
