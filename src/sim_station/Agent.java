@@ -5,10 +5,10 @@ import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
     private static final long serialVersionUID = 1L; // Ensures compatibility across versions
-    int xc;
-    int yc;
-    boolean paused  = false;
-    boolean stopped = false;
+    protected int xc;
+    protected int yc;
+    protected boolean paused  = false;
+    protected boolean stopped = false;
     String agentName;
     Thread myThread;
     protected World world;
@@ -30,13 +30,12 @@ public abstract class Agent implements Runnable, Serializable {
         return yc;
     }
 
-    public boolean getStopped() {
-        return stopped;
-    }
-
     public void start() {
         if (stopped) {
             stopped = false;
+        }
+        else if (paused) {
+            resume();
         }
         
         if (myThread == null) {
@@ -66,6 +65,9 @@ public abstract class Agent implements Runnable, Serializable {
             synchronized (myThread) {
                 myThread.notify();
             }
+        }
+        else {
+            start();
         }
     }
 
