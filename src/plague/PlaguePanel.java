@@ -1,12 +1,16 @@
 package plague;
 
 import mvc.AppFactory;
+import mvc.Command;
+import mvc.Model;
+import mvc.Utilities;
 import sim_station.WorldPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class PlaguePanel extends WorldPanel implements ChangeListener {
 
@@ -77,6 +81,11 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
     }
 
     @Override
+    public void setModel(Model newModel) {
+        super.setModel(newModel);
+    }
+
+    @Override
     public void stateChanged(ChangeEvent e) {
         PlagueSim sim = (PlagueSim) model;
 
@@ -88,6 +97,24 @@ public class PlaguePanel extends WorldPanel implements ChangeListener {
             sim.setPopulationSize(populationSizeSlider.getValue());
         } else if (e.getSource() == recoveryTimeSlider) {
             sim.setRecoveryTime(recoveryTimeSlider.getValue());
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        try {
+            String cmmd = ae.getActionCommand();
+
+            if (cmmd.equals("New")) {
+                Utilities.saveChanges(model);
+                setModel(((PlagueFactory) factory).makeModel(initialInfectedSlider.getValue(), infectionProbabilitySlider.getValue(), populationSizeSlider.getValue(), recoveryTimeSlider.getValue()));
+                model.setUnsavedChanges(false);
+            }
+            else {
+                super.actionPerformed(ae);
+            }
+        } catch (Exception e) {
+            handleException(e);
         }
     }
 }

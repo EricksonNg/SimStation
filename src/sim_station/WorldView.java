@@ -43,6 +43,13 @@ public class WorldView extends View {
     }
 
     @Override
+    public void setModel(Model newModel) {
+        super.setModel(newModel);
+        world = (World) newModel;
+        world.populate();
+    }
+
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLUE);
