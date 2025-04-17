@@ -9,6 +9,17 @@ public class PlagueSim extends World {
     public static int RECOVERY_TIME = 300;
     private boolean fatal = false;
 
+    public PlagueSim() {
+        super();
+    }
+
+    public PlagueSim(int initialInfected, int initialVirulence, int populationSize, int recoveryTime) {
+        INITIAL_INFECTED = initialInfected;
+        VIRULENCE = initialVirulence;
+        POPULATION_SIZE = populationSize;
+        RECOVERY_TIME = recoveryTime;
+    }
+
     public void setVirulence(int value) {
         VIRULENCE = value;
     }

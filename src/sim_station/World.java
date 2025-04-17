@@ -48,6 +48,7 @@ public abstract class World extends Model {
         agents.clear();
         clock = 0;
         alive = 0;
+        changed();
     }
 
     public void pauseAgents() {
